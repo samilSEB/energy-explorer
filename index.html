@@ -248,15 +248,15 @@ function computeSensitivity() {
 
 function updateGauge(res) {
   gauge.value = res.e;
-  document.getElementById('kpi_energy').textContent = res.e.toFixed(1);
-  document.getElementById('kpi_dauer').textContent = res.d.toFixed(1);
+  document.getElementById('kpi_energy').textContent = res.e.toFixed(3);
+  document.getElementById('kpi_dauer').textContent = res.d.toFixed(3);
   document.getElementById('kpi_model').textContent = res.id;
-  document.getElementById('gauge_label').textContent = res.e.toFixed(1) + ' J';
-  document.getElementById('gauge_model').textContent = `Modell ${res.id} · ${res.d.toFixed(1)} s Inferenz`;
+  document.getElementById('gauge_label').textContent = res.e.toFixed(3) + ' J';
+  document.getElementById('gauge_model').textContent = `Modell ${res.id} · ${res.d.toFixed(3)} s Inferenz`;
   const zone = res.e < 300 ? ['&#9679; Effizient','#0072B2'] : res.e < 600 ? ['&#9679; Moderat','#E69F00'] : ['&#9679; Hoch','#D55E00'];
   document.getElementById('kpi_zone').innerHTML = zone[0];
   document.getElementById('kpi_zone').style.color = zone[1];
-  document.getElementById('kpi_zone_lbl').textContent = res.e.toFixed(0) + ' J';
+  document.getElementById('kpi_zone_lbl').textContent = res.e.toFixed(3) + ' J';
 }
 
 function updateSensitivity() {
@@ -287,7 +287,7 @@ function updateSensitivity() {
       options: {
         indexAxis:'y',
         responsive:true,
-        plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.parsed.x.toFixed(1)} J Spanne`}}},
+        plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.parsed.x.toFixed(3)} J Spanne`}}},
         scales:{
           x:{grid:{color:'#21262d'},ticks:{color:'#8b949e'},title:{display:true,text:'Energiespanne (J)',color:'#8b949e'}},
           y:{grid:{color:'#21262d'},ticks:{color:'#c9d1d9'}}
@@ -340,8 +340,8 @@ function buildScatter() {
       plugins:{
         legend:{labels:{color:'#8b949e',font:{size:11}}},
         tooltip:{callbacks:{label:ctx=>{
-          if(ctx.dataset.label==='Aktuelle Auswahl') return `${ctx.raw.id}: ${ctx.raw.y.toFixed(1)} J, ${ctx.raw.x.toFixed(1)} s`;
-          return `${ctx.raw.y.toFixed(1)} J / ${ctx.raw.x.toFixed(1)} s`;
+          if(ctx.dataset.label==='Aktuelle Auswahl') return `${ctx.raw.id}: ${ctx.raw.y.toFixed(3)} J, ${ctx.raw.x.toFixed(3)} s`;
+          return `${ctx.raw.y.toFixed(3)} J / ${ctx.raw.x.toFixed(3)} s`;
         }}}
       },
       scales:{
@@ -379,7 +379,7 @@ function buildBarChart(param) {
       responsive:true,
       plugins:{
         legend:{display:false},
-        tooltip:{callbacks:{label:ctx=>`Ø ${ctx.parsed.y.toFixed(1)} J`}}
+        tooltip:{callbacks:{label:ctx=>`Ø ${ctx.parsed.y.toFixed(3)} J`}}
       },
       scales:{
         x:{grid:{color:'#21262d'},ticks:{color:'#c9d1d9'}},
