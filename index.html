@@ -122,19 +122,19 @@
     </div>
 
     <div class="d-flex gap-3 flex-wrap align-items-center">
+      <!-- Sensitivity Chart -->
+      <div class="chart-card flex-grow-1" style="min-width:280px;">
+        <h6>&#128270; Sensitivit&auml;t &mdash; Einfluss je Parameter</h6>
+        <div style="font-size:0.72rem;color:#484f58;margin-bottom:0.5rem;">Energiespanne wenn nur dieser Parameter variiert (andere fix)</div>
+        <canvas id="sensitivityChart" height="180"></canvas>
+      </div>
+
       <!-- Gauge -->
       <div class="gauge-card" style="min-width:220px;">
         <div style="font-size:0.72rem;color:#8b949e;text-transform:uppercase;margin-bottom:0.3rem;">Energieverbrauch</div>
         <canvas id="energyGauge" width="240" height="150"></canvas>
         <div class="energy-label" id="gauge_label">135.5 J</div>
         <div class="model-badge" id="gauge_model">Modell m1 &middot; 11.6 s Inferenz</div>
-      </div>
-
-      <!-- Sensitivity Chart -->
-      <div class="chart-card flex-grow-1" style="min-width:280px;">
-        <h6>&#128270; Sensitivit&auml;t &mdash; Einfluss je Parameter</h6>
-        <div style="font-size:0.72rem;color:#484f58;margin-bottom:0.5rem;">Energiespanne wenn nur dieser Parameter variiert (andere fix)</div>
-        <canvas id="sensitivityChart" height="180"></canvas>
       </div>
     </div>
 
