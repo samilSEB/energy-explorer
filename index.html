@@ -10,7 +10,7 @@
 <style>
   body { background:#0d1117; color:#e6edf3; font-family:'Segoe UI',system-ui,sans-serif; min-height:100vh; }
   .sidebar { background:#161b22; border-right:1px solid #30363d; position:sticky; top:0; height:100vh; overflow-y:auto; padding:1.5rem 1rem; flex-shrink:0; }
-  .main-panel { padding:1.5rem; }
+  .main-panel { padding:1rem 1.5rem; }
   h1 { font-size:1.3rem; font-weight:700; color:#58a6ff; margin-bottom:0.2rem; }
   .subtitle { font-size:0.78rem; color:#8b949e; margin-bottom:1.5rem; }
   .param-label { font-size:0.72rem; font-weight:600; color:#8b949e; text-transform:uppercase; letter-spacing:.05em; margin-bottom:0.3rem; margin-top:1rem; }
@@ -21,10 +21,10 @@
   .form-check-input { width:2.5rem; height:1.3rem; cursor:pointer; }
   .form-check-input:checked { background-color:#1f6feb; border-color:#1f6feb; }
   .dropout-badge { background:#21262d; border:1px solid #30363d; border-radius:6px; padding:0.4rem 0.7rem; font-size:0.8rem; color:#8b949e; margin-top:0.3rem; }
-  .gauge-card { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:1rem; text-align:center; margin-bottom:1rem; }
-  .gauge-card canvas { max-width:280px; }
+  .gauge-card { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:0.7rem 1rem; text-align:center; margin-bottom:1rem; }
+  .gauge-card canvas { max-width:280px; margin:0 auto; display:block; }
   .kpi-row { display:flex; gap:0.5rem; margin-bottom:1rem; flex-wrap:wrap; }
-  .kpi { background:#161b22; border:1px solid #30363d; border-radius:8px; padding:0.6rem 1rem; flex:1; min-width:120px; }
+  .kpi { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:0.7rem 1rem; flex:1; min-width:100px; text-align:center; }
   .kpi-label { font-size:0.68rem; color:#8b949e; text-transform:uppercase; }
   .kpi-val { font-size:1.3rem; font-weight:700; color:#58a6ff; }
   .kpi-unit { font-size:0.7rem; color:#8b949e; }
@@ -97,45 +97,36 @@
 
   <!-- MAIN -->
   <div class="main-panel flex-grow-1">
-    <!-- KPI Row -->
-    <div class="kpi-row">
-      <div class="kpi">
-        <div class="kpi-label">Energieverbrauch</div>
-        <div class="kpi-val" id="kpi_energy">135.5</div>
-        <div class="kpi-unit">Joule</div>
+    <!-- Top Row: Gauge + KPIs -->
+    <div class="d-flex gap-3 flex-wrap align-items-stretch" style="margin-bottom:0.75rem;">
+      <div class="gauge-card" style="flex:1;min-width:200px;margin-bottom:0;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:0.72rem;color:#8b949e;text-transform:uppercase;margin-bottom:0.2rem;">Energieverbrauch</div>
+        <canvas id="energyGauge" width="200" height="130"></canvas>
+        <div class="energy-label" style="font-size:1.6rem;" id="gauge_label">135.5 J</div>
+        <div class="model-badge" id="gauge_model">Modell m1 &middot; 11.6 s Inferenz</div>
       </div>
-      <div class="kpi">
+      <div class="kpi" style="flex:1;min-width:100px;display:flex;flex-direction:column;justify-content:center;">
         <div class="kpi-label">Inferenzzeit</div>
         <div class="kpi-val" id="kpi_dauer">11.6</div>
         <div class="kpi-unit">Sekunden</div>
       </div>
-      <div class="kpi">
+      <div class="kpi" style="flex:1;min-width:100px;display:flex;flex-direction:column;justify-content:center;">
         <div class="kpi-label">Modell-ID</div>
         <div class="kpi-val" id="kpi_model" style="font-size:1rem;">m1</div>
         <div class="kpi-unit">results_final3</div>
       </div>
-      <div class="kpi">
+      <div class="kpi" style="flex:1;min-width:100px;display:flex;flex-direction:column;justify-content:center;">
         <div class="kpi-label">Effizienz-Zone</div>
         <div class="kpi-val" id="kpi_zone" style="font-size:1rem;">&#9679;</div>
         <div class="kpi-unit" id="kpi_zone_lbl">Effizient</div>
       </div>
     </div>
 
-    <div class="d-flex gap-3 flex-wrap align-items-center">
-      <!-- Gauge -->
-      <div class="gauge-card" style="min-width:220px;">
-        <div style="font-size:0.72rem;color:#8b949e;text-transform:uppercase;margin-bottom:0.3rem;">Energieverbrauch</div>
-        <canvas id="energyGauge" width="240" height="150"></canvas>
-        <div class="energy-label" id="gauge_label">135.5 J</div>
-        <div class="model-badge" id="gauge_model">Modell m1 &middot; 11.6 s Inferenz</div>
-      </div>
-
-      <!-- Sensitivity Chart -->
-      <div class="chart-card flex-grow-1" style="min-width:280px;">
-        <h6>&#128270; Sensitivit&auml;t &mdash; Einfluss je Parameter</h6>
-        <div style="font-size:0.72rem;color:#484f58;margin-bottom:0.5rem;">Energiespanne wenn nur dieser Parameter variiert (andere fix)</div>
-        <canvas id="sensitivityChart" height="180"></canvas>
-      </div>
+    <!-- Sensitivity Chart -->
+    <div class="chart-card" style="margin-bottom:0.75rem;padding:0.7rem;">
+      <h6 style="margin-bottom:0.4rem;">&#128270; Sensitivit&auml;t &mdash; Einfluss je Parameter</h6>
+      <div style="font-size:0.72rem;color:#484f58;margin-bottom:0.3rem;">Energiespanne wenn nur dieser Parameter variiert (andere fix)</div>
+      <canvas id="sensitivityChart" height="140"></canvas>
     </div>
 
     <!-- Bottom tabs -->
@@ -170,7 +161,7 @@ let state = {nb:2, bf:16, ks:3, dl:3, du:32, bn:1};
 // ---- GAUGE ----
 const gauge = new RadialGauge({
   renderTo: 'energyGauge',
-  width: 240, height: 150,
+  width: 200, height: 130,
   minValue: EMIN, maxValue: EMAX,
   value: 135,
   units: 'Joule',
@@ -248,7 +239,6 @@ function computeSensitivity() {
 
 function updateGauge(res) {
   gauge.value = res.e;
-  document.getElementById('kpi_energy').textContent = res.e.toFixed(3);
   document.getElementById('kpi_dauer').textContent = res.d.toFixed(3);
   document.getElementById('kpi_model').textContent = res.id;
   document.getElementById('gauge_label').textContent = res.e.toFixed(3) + ' J';
